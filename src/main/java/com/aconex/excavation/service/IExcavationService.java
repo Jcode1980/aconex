@@ -6,10 +6,12 @@ import java.io.File;
 
 public interface IExcavationService {
 
-    IExcavationJob createExcavationJob(File filePath);
+    IExcavationJob createExcavationJob(String filePath) throws Exception;
 
-    boolean startExcavationJob(IExcavationJob excavationJob);
+    void startExcavationJob(IExcavationJob excavationJob);
 
     //moves
     boolean processCommandForJob(String command, IExcavationJob excavationJo);
+
+
 }

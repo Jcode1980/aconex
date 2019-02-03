@@ -1,11 +1,13 @@
 package com.aconex.excavation.enums;
 
+import java.util.Arrays;
 import java.util.List;
 
 public enum CardinalPoint {
     NORTH(1),EAST(2),SOUTH(3),WEST(4);
 
-    public static List<CardinalPoint> cardinalPoints = List.of(NORTH,EAST,SOUTH,WEST);
+    //public static List<CardinalPoint> cardinalPoints = List.of(NORTH,EAST,SOUTH,WEST);
+    public static List<CardinalPoint> cardinalPoints = Arrays.asList(NORTH, EAST, SOUTH, WEST);
 
     CardinalPoint(int value){this.value = value; }
 

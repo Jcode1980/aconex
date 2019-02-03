@@ -6,8 +6,13 @@ public class Application {
     }
 
     static private void initializeClient(String filePath){
-        Client client = new Client(filePath);
-        client.startExcavationSimluator();
+        try{
+            Client client = new Client(filePath);
+            client.startExcavationSimluator();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 }

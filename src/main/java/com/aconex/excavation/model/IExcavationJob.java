@@ -10,6 +10,4 @@ public interface IExcavationJob {
     List<IInstruction> instructions();
 
 
-    void processCliInstruction(String instruction);
-
 }

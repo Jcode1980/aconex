@@ -16,7 +16,7 @@ public interface ISiteController {
      * @return <code>boolean</> to specify if the move was valid and
      * <code>PlaceableItem</code>'s coordinates were updated.
      */
-    boolean move();
+    boolean advance(int distance);
 
     /**
      * This methods rotates the <code>PlaceableItem</code> on the board
@@ -37,12 +37,4 @@ public interface ISiteController {
      * @return <code>boolean</code> true if <code>PlaceableItem</code> was placed
      *          successfully on board and false if not placed successfully.
      */
-    boolean place(int x, int y, CardinalPoint cp);
-
-    /**
-     *
-     * @return <code>String</code> which are the details (x, y, Cardinal Point) of
-     * the <code>PlaceableItem</code> on the board.
-     */
-    Optional<String> report();
 }
