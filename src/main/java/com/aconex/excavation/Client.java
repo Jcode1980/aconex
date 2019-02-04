@@ -1,17 +1,23 @@
 package com.aconex.excavation;
 
 import com.aconex.excavation.model.IExcavationJob;
+import com.aconex.excavation.model.IInvoice;
+import com.aconex.excavation.model.Invoice;
 import com.aconex.excavation.service.ExcavationService;
+import com.aconex.excavation.service.FinanceService;
 import com.aconex.excavation.service.IExcavationService;
+import com.aconex.excavation.service.IFinanceService;
 
 import java.util.Scanner;
 
 public class Client {
     private IExcavationService excavationService;
     private IExcavationJob excavationJob;
+    private IFinanceService financeService;
 
-    public Client(String filePath) throws Exception{
+    Client(String filePath) throws Exception{
         excavationService = ExcavationService.excavationService();
+        financeService = FinanceService.financeService();
         excavationJob  = excavationService.createExcavationJob(filePath);
     }
 
@@ -40,6 +46,8 @@ public class Client {
             boolean commandWasRun = excavationService.processCommandForJob(commandStr, excavationJob);
             System.out.print("(l)eft, (r)ight, (a)dvance <n>, (q)uit: ");
         }
+
+        endPhase();
     }
 
     private void endPhase(){
@@ -47,6 +55,10 @@ public class Client {
             "you issued:");
         System.out.println(excavationJob.instructions());
         System.out.println("The costs for this land clearing operation were:");
+
+        IInvoice invoice = financeService.invoiceForJob(excavationJob);
+
+        System.out.println(invoice.costsDisplayString());
     }
 
 }

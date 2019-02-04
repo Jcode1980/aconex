@@ -2,7 +2,6 @@ package com.aconex.excavation.service;
 
 import com.aconex.excavation.model.IExcavationJob;
 
-import java.io.File;
 
 public interface IExcavationService {
 

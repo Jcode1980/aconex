@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Invoice implements IInvoice{
-    private List<IInvoiceLineItem> invoiceItems = new ArrayList<IInvoiceLineItem>();
+    private List<IInvoiceLineItem> invoiceItems = new ArrayList<>();
     private IExcavationJob job;
 
-    public Invoice(IExcavationJob job){this.job = job;}
+    public Invoice(IExcavationJob job){
+        if(job == null){throw new NullPointerException("job must not be null");}
+        this.job = job;
+    }
 
     @Override
     public List<IInvoiceLineItem> invoiceItems() {
@@ -18,6 +21,20 @@ public class Invoice implements IInvoice{
     public IExcavationJob job() {
         return job;
     }
+
     @Override
     public void addToInvoiceItems(IInvoiceLineItem li){invoiceItems.add(li);}
+
+    @Override
+    public String costsDisplayString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Item\t\t\t\t Quantity\t\tCost");
+
+        for(IInvoiceLineItem invoiceItems : invoiceItems()){
+            sb.append(invoiceItems.displayString());
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
 }

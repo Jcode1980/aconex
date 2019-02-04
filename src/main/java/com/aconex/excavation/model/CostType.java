@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CostType {
-    protected String name;
-    protected Integer perUnitCost;
+    private String name;
+    private Integer perUnitCost;
 
     public static final String COMMUNICATION_OVERHEAD_TYPE = "communication overhead";
     public static final String FUEL_USAGE_TYPE = "fuel usage";
@@ -16,10 +16,13 @@ public class CostType {
 
     static private List<CostType> costTypes = new ArrayList<CostType>();
 
+    private CostType(String name, Integer perUnitCost){
+        this.name = name;
+        this.perUnitCost = perUnitCost;
+    }
+
     public String getName(){return name;}
     public Integer getPerUnitCost(){return perUnitCost;}
-
-
 
     //FIXME move this out somewhere
     static{
@@ -30,14 +33,13 @@ public class CostType {
         costTypes.add(new CostType(PAINT_DAMAGE_TO_BULLDOZERG_TYPE, 2));
     }
 
-    public CostType(String name, Integer perUnitCost){
-        this.name = name;
-        this.perUnitCost = perUnitCost;
-    }
+
 
     static public CostType costTypeForString(String label){
-        return costTypes.stream().filter(costype -> costype.getName() == label).findFirst()
-                .orElseThrow(() ->new IllegalArgumentException());
+        if(label == null){ throw new RuntimeException("label must not be null"); }
+
+        return costTypes.stream().filter(costype -> costype.getName().equals(label) ).findFirst()
+                .orElseThrow(() ->new IllegalArgumentException("Could not find cost type with label: " + label));
     }
 
 

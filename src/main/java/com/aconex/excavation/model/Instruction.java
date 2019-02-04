@@ -9,6 +9,8 @@ public class Instruction implements IInstruction {
     private Optional<Integer> units;
 
     public Instruction(ActionType actionType, Optional<Integer> units){
+        if(actionType == null){throw new NullPointerException("action type must not be null");}
+
         this.actionType = actionType;
         this.units = units;
     }

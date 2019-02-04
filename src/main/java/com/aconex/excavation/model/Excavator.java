@@ -1,23 +1,18 @@
 package com.aconex.excavation.model;
 
-import com.aconex.excavation.controller.ISiteController;
 import com.aconex.excavation.enums.CardinalPoint;
 import com.aconex.excavation.enums.RotationDirection;
 
 public class Excavator implements IExcavator{
-    Point point;
-    CardinalPoint cardinalPoint;
-    Integer fuelUsed = 0;
-
-    @Override
-    public ISiteController excavatorController() {
-        return null;
-    }
+    private Point point;
+    private CardinalPoint cardinalPoint;
+    private Integer fuelUsed = 0;
 
 
     @Override
     public void rotate(RotationDirection direction) {
-
+        if(direction == null){throw new NullPointerException("Rotation Direction must not be null");}
+        cardinalPoint = CardinalPoint.cardinalPointForRotation(cardinalPoint, direction);
     }
 
 
@@ -44,7 +39,10 @@ public class Excavator implements IExcavator{
     }
 
     @Override
-    public void setCardinalPoint(CardinalPoint cp){this.cardinalPoint = cp;}
+    public void setCardinalPoint(CardinalPoint cp){
+        if(cp == null){throw new NullPointerException("cardinal point must not be null");}
+        this.cardinalPoint = cp;
+    }
 
     @Override
     public Point nextMoveCoordinates(){
@@ -72,6 +70,7 @@ public class Excavator implements IExcavator{
     @Override
     //this function assumes that point ONLY move 1 unit at a time
     public Integer move(Point point){
+        if(point == null){throw new NullPointerException("point must not be null");}
         this.point = point;
         return 1;
     }

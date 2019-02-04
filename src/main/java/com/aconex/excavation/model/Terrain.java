@@ -5,7 +5,9 @@ public class Terrain implements ITerrain{
     private boolean hasBeenExcavated = false;
 
 
-    public Terrain(TerrainType terrainType){
+    Terrain(TerrainType terrainType){
+        if(terrainType == null){throw new NullPointerException("Terrain type must not be null");}
+
         this.terrainType = terrainType;
     }
 
@@ -15,11 +17,6 @@ public class Terrain implements ITerrain{
     @Override
     public boolean hasBeenExcavated() {
         return hasBeenExcavated;
-    }
-
-    @Override
-    public String getName() {
-        return terrainType.getName();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.aconex.excavation.enums.CardinalPoint;
 import com.aconex.excavation.enums.RotationDirection;
 import com.aconex.excavation.model.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,22 +20,24 @@ public class ExcavationService implements IExcavationService{
     }
 
     @Override
-    public IExcavationJob createExcavationJob(String filePath) throws Exception{
+    public IExcavationJob createExcavationJob(String filePath) throws IOException{
         Site newSite = new Site(filePath);
         IExcavator excavator = new Excavator();
         excavator.setCardinalPoint(CardinalPoint.EAST);
-        IExcavationJob excavationJob = new ExcavationJob(newSite, excavator);
-        return excavationJob;
+        return  new ExcavationJob(newSite, excavator);
     }
 
     @Override
     public void startExcavationJob(IExcavationJob excavationJob) {
+        if(excavationJob == null){throw new NullPointerException("job must not be null");}
         moveAndExcavate(excavationJob, new Point(0,0));
     }
 
 
     //FIXME .. deal with no action types found??
     private IInstruction instructionForCommand(String commmand) throws IllegalArgumentException{
+        if(commmand == null){throw new NullPointerException("command parameter not be null");}
+
         IInstruction instruction;
         List<ActionType> actionTypes = ActionType.actionTypes();
         ActionType actionType =  actionTypes.stream().filter(
@@ -70,6 +73,9 @@ public class ExcavationService implements IExcavationService{
     //binds valid commands to actions
     @Override
     public boolean processCommandForJob(String command, IExcavationJob job) {
+        if(job == null){throw new NullPointerException("job must not be null");}
+        if(command == null){throw new NullPointerException("command parameter must not be null");}
+
         System.out.println("Processing command: " + command);
         boolean continueJob = true;
         try {
@@ -87,7 +93,7 @@ public class ExcavationService implements IExcavationService{
                     job.excavator().rotate(RotationDirection.RIGHT);
                     break;
                 case ADVANCE:
-                    continueJob = advanceAction(job, instruction.units().get());
+                    continueJob = advanceAction(job, instruction.units().orElse(0));
                     break;
                 case QUIT:
                     continueJob = false;
@@ -104,7 +110,7 @@ public class ExcavationService implements IExcavationService{
 
 
     private boolean advanceAction(IExcavationJob job, Integer units){
-        int totalFuelUsed = 0;
+
 
         int i=0;
         while(i < units){
@@ -114,7 +120,7 @@ public class ExcavationService implements IExcavationService{
             if(job.site().coordinatesAreValid(point)){
                 System.out.println("point is valid: yes");
                 //if Valid.. do the move
-                totalFuelUsed = totalFuelUsed + moveAndExcavate(job, point);
+                moveAndExcavate(job, point);
             }
             else{
                 System.out.println("point is valid: false");
@@ -125,8 +131,8 @@ public class ExcavationService implements IExcavationService{
         return true;
     }
 
-    //returns total fuel used.
-    private Integer moveAndExcavate(IExcavationJob job, Point point){
+
+    private void moveAndExcavate(IExcavationJob job, Point point){
         int totalFuelUsed = job.excavator().move(point);
 
         ITerrain terrain = job.site().terrainForCoordinate(point);
@@ -134,7 +140,7 @@ public class ExcavationService implements IExcavationService{
             totalFuelUsed = totalFuelUsed + job.excavator().excavateTerrain(terrain);
         }
 
-        return totalFuelUsed;
+        job.excavator().addToFuelUsed(totalFuelUsed);
     }
 
 

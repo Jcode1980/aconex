@@ -1,7 +1,10 @@
 package com.aconex.excavation.model;
 
+import com.aconex.excavation.enums.ActionType;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ExcavationJob implements  IExcavationJob{
     private ISite site;
@@ -24,12 +27,13 @@ public class ExcavationJob implements  IExcavationJob{
     }
 
     @Override
-    public List<IInvoiceLineItem> costItems() {
-        return null;
-    }
+    public List<IInstruction> instructions() { return instructions; }
 
     @Override
-    public List<IInstruction> instructions() { return instructions; }
+    public List<IInstruction> billableInstructions() {
+       return instructions().stream().filter(i -> i.actionType() != ActionType.QUIT).collect(Collectors.toList());
+    }
+
 
 
 }

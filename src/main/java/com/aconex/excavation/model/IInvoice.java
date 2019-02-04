@@ -8,5 +8,6 @@ public interface IInvoice {
 
     void addToInvoiceItems(IInvoiceLineItem li);
 
+    String costsDisplayString();
 
 }

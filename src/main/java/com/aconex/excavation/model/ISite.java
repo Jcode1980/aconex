@@ -4,20 +4,18 @@ import java.util.List;
 
 public interface ISite {
 
-    public String represenationalMap();
+    String represenationalMap();
 
-    public ITerrain terrainForCoordinate(Point point);
+    ITerrain terrainForCoordinate(Point point);
 
-    public boolean coordinatesAreValid(Point point);
+    boolean coordinatesAreValid(Point point);
 
-    //public Integer excavateCoordinate(Point point);
+    List<ITerrain> clearedTerrains();
 
-    public List<ITerrain> clearedTerrains();
+    List<ITerrain> nonClearedTerrains();
 
-    public List<ITerrain> nonClearedTerrains();
+    List<ITerrain> clearedRockyTerrains();
 
-    public List<ITerrain> clearedRockyTerrains();
-
-    public List<ITerrain> clearedProtectedTreesTerrains();
+    List<ITerrain> clearedProtectedTreesTerrains();
 
 }

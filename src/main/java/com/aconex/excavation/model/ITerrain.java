@@ -4,7 +4,6 @@ public interface ITerrain {
 
     boolean hasBeenExcavated();
 
-    String getName();
 
     void excavate();
 
