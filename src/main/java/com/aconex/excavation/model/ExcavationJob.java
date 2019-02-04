@@ -24,7 +24,7 @@ public class ExcavationJob implements  IExcavationJob{
     }
 
     @Override
-    public List<ICostItem> costItems() {
+    public List<IInvoiceLineItem> costItems() {
         return null;
     }
 

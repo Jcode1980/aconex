@@ -6,7 +6,7 @@ public interface IExcavationJob {
 
     IExcavator excavator();
     ISite site();
-    List<ICostItem> costItems();
+    List<IInvoiceLineItem> costItems();
     List<IInstruction> instructions();
 
 

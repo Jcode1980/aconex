@@ -4,14 +4,13 @@ public class Terrain implements ITerrain{
     private TerrainType terrainType;
     private boolean hasBeenExcavated = false;
 
+
     public Terrain(TerrainType terrainType){
         this.terrainType = terrainType;
     }
 
     @Override
-    public void excavateTerrain() {
-
-    }
+    public void excavate() { hasBeenExcavated = true; }
 
     @Override
     public boolean hasBeenExcavated() {
@@ -27,4 +26,8 @@ public class Terrain implements ITerrain{
     public String getCode() {
         return terrainType.getCode()+"";
     }
+
+    @Override
+    public TerrainType terrainType(){ return terrainType; }
+
 }

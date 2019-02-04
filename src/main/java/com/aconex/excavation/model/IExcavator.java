@@ -12,8 +12,16 @@ public interface IExcavator {
 
     Point nextMoveCoordinates();
 
-    void move(Point point);
+    Integer move(Point point);
 
     void setCardinalPoint(CardinalPoint cp);
+
     CardinalPoint getCardinalPoint();
+
+    Integer excavateTerrain(ITerrain terrain);
+
+    Integer fuelUsed();
+
+    void addToFuelUsed(Integer fuelAmount);
+
 }

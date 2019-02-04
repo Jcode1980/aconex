@@ -104,6 +104,7 @@ public class ExcavationService implements IExcavationService{
 
 
     private boolean advanceAction(IExcavationJob job, Integer units){
+        int totalFuelUsed = 0;
 
         int i=0;
         while(i < units){
@@ -113,7 +114,7 @@ public class ExcavationService implements IExcavationService{
             if(job.site().coordinatesAreValid(point)){
                 System.out.println("point is valid: yes");
                 //if Valid.. do the move
-                moveAndExcavate(job, point);
+                totalFuelUsed = totalFuelUsed + moveAndExcavate(job, point);
             }
             else{
                 System.out.println("point is valid: false");
@@ -124,9 +125,16 @@ public class ExcavationService implements IExcavationService{
         return true;
     }
 
-    private void moveAndExcavate(IExcavationJob job, Point point){
-        job.excavator().move(point);
-        job.site().excavateCoordinate(point);
+    //returns total fuel used.
+    private Integer moveAndExcavate(IExcavationJob job, Point point){
+        int totalFuelUsed = job.excavator().move(point);
+
+        ITerrain terrain = job.site().terrainForCoordinate(point);
+        if(!terrain.hasBeenExcavated()){
+            totalFuelUsed = totalFuelUsed + job.excavator().excavateTerrain(terrain);
+        }
+
+        return totalFuelUsed;
     }
 
 

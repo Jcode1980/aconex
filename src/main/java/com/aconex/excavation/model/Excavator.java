@@ -7,6 +7,7 @@ import com.aconex.excavation.enums.RotationDirection;
 public class Excavator implements IExcavator{
     Point point;
     CardinalPoint cardinalPoint;
+    Integer fuelUsed = 0;
 
     @Override
     public ISiteController excavatorController() {
@@ -25,6 +26,22 @@ public class Excavator implements IExcavator{
     private int getY(){return point.getY();}
 
     public CardinalPoint getCardinalPoint(){return cardinalPoint;}
+
+    @Override
+    public Integer fuelUsed() {
+        return fuelUsed;
+    }
+
+    @Override
+    public void addToFuelUsed(Integer fuelAmount) {
+        fuelUsed = fuelUsed + fuelAmount;
+    }
+
+    @Override
+    public Integer excavateTerrain(ITerrain terrain) {
+        terrain.excavate();
+        return terrain.terrainType().getExcavationFuelCost();
+    }
 
     @Override
     public void setCardinalPoint(CardinalPoint cp){this.cardinalPoint = cp;}
@@ -53,7 +70,9 @@ public class Excavator implements IExcavator{
     }
 
     @Override
-    public void move(Point point){
+    //this function assumes that point ONLY move 1 unit at a time
+    public Integer move(Point point){
         this.point = point;
+        return 1;
     }
 }

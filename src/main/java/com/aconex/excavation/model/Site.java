@@ -3,6 +3,9 @@ package com.aconex.excavation.model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Site implements ISite{
     ArrayList<ArrayList<ITerrain>> terrainsMap;
@@ -72,14 +75,50 @@ public class Site implements ISite{
 
     }
 
-    @Override
-    public void excavateCoordinate(Point point) {
-        ITerrain terrain = terrainForCoordinate(point);
+//    @Override
+//    public Integer excavateCoordinate(Point point) {
+//        ITerrain terrain = terrainForCoordinate(point);
+//
+//
+//        if(!terrain.hasBeenExcavated()){
+//            terrain.excavateTerrain();
+//            return terrain.terrainType().getExcavationFuelCost();
+//        }
+//        else{
+//            return 0;
+//        }
+//
+//    }
 
-        if(!terrain.hasBeenExcavated()){
-            terrain.excavateTerrain();
+    @Override
+    public List<ITerrain> clearedTerrains() {
+        return allTerrains().stream().filter(terrain -> terrain.hasBeenExcavated()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ITerrain> nonClearedTerrains() {
+        return allTerrains().stream().filter(terrain -> !terrain.hasBeenExcavated()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ITerrain> clearedRockyTerrains() {
+        return clearedTerrains().stream().filter(terrain-> terrain.terrainType().getName().equalsIgnoreCase());
+    }
+
+    @Override
+    public List<ITerrain> clearedProtectedTreesTerrains() {
+        return null;
+    }
+
+    private List<ITerrain> allTerrains(){
+        ArrayList<ITerrain> allTerrains = new ArrayList<>();
+        ArrayList<ArrayList<ITerrain>> terrainsMap = getTerrainsMap();
+
+        for(ArrayList<ITerrain> row : terrainsMap){
+            allTerrains.addAll(row.stream().collect(Collectors.toList()));
         }
 
+        return allTerrains;
     }
 
     private boolean coordinatesAreWithinBoundary(int x, int y) {
@@ -89,6 +128,8 @@ public class Site implements ISite{
     private Integer getWidth(){return width;}
 
     private Integer getHeight(){return height;}
+
+
 
 
 
