@@ -14,7 +14,7 @@ public class CostType {
     public static final String PAINT_DAMAGE_TO_BULLDOZERG_TYPE = "paint damage to bulldozer";
 
 
-    static private List<CostType> costTypes = new ArrayList<CostType>();
+    static private List<CostType> costTypes = new ArrayList<>();
 
     private CostType(String name, Integer perUnitCost){
         this.name = name;

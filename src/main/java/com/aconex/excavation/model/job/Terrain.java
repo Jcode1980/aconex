@@ -1,4 +1,4 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.job;
 
 public class Terrain implements ITerrain{
     private TerrainType terrainType;

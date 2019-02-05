@@ -1,20 +1,18 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.job;
 
 import com.aconex.excavation.enums.CardinalPoint;
 import com.aconex.excavation.enums.RotationDirection;
+
+import java.awt.*;
 
 public interface IExcavator {
     void rotate(RotationDirection direction);
 
     Point nextMoveCoordinates();
 
-    Integer move(Point point);
-
-    void setCardinalPoint(CardinalPoint cp);
+    void moveAndExcavate(ITerrain terrain);
 
     CardinalPoint getCardinalPoint();
-
-    Integer excavateTerrain(ITerrain terrain);
 
     Integer fuelUsed();
 

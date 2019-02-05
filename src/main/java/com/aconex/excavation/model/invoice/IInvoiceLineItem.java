@@ -1,4 +1,4 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.invoice;
 
 public interface IInvoiceLineItem {
 

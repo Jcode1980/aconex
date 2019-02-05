@@ -1,4 +1,6 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.invoice;
+
+import com.aconex.excavation.model.job.IExcavationJob;
 
 import java.util.List;
 

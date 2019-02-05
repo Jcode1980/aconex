@@ -1,6 +1,10 @@
-package com.aconex.excavation.service;
+package com.aconex.excavation.service.invoice;
 
 import com.aconex.excavation.model.*;
+import com.aconex.excavation.model.invoice.IInvoice;
+import com.aconex.excavation.model.invoice.Invoice;
+import com.aconex.excavation.model.invoice.InvoiceLineItem;
+import com.aconex.excavation.model.job.IExcavationJob;
 
 public class FinanceService implements IFinanceService {
     static private FinanceService financeService;

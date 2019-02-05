@@ -1,18 +1,26 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.job;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TerrainType {
+
+class TerrainType {
     static private List<TerrainType> terrainTypes = new ArrayList<>();
 
     private String name;
     private char code;
     private Integer excavationFuelCost;
 
-    static private String PLAIN = "Plain";
+    @SuppressWarnings("WeakerAccess")
+    static public String PLAIN = "Plain";
+
+    @SuppressWarnings("WeakerAccess")
     static public String ROCKY = "Rocky";
-    static private String REMOVABLE_TREE = "Removable Tree";
+
+    @SuppressWarnings("WeakerAccess")
+    static public String REMOVABLE_TREE = "Removable Tree";
+
+    @SuppressWarnings("WeakerAccess")
     static public String PRESERVED_TREE = "Preserved Tree";
 
 
@@ -29,19 +37,20 @@ public class TerrainType {
         this.excavationFuelCost = excavationFuelCost;
     }
 
-
+    @SuppressWarnings("WeakerAccess")
     public String getName() {
         return name;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public char getCode() {
         return code;
     }
 
-    static public TerrainType terrainTypeForChar(char c){
+    static TerrainType terrainTypeForChar(char c){
         return terrainTypes.stream().filter(terrain -> terrain.getCode() == c).findFirst().orElseThrow(() ->
                 new IllegalArgumentException("terrain with code: " + c + " not found"));
     }
 
-    public Integer getExcavationFuelCost(){return excavationFuelCost;}
+    Integer getExcavationFuelCost(){return excavationFuelCost;}
 }

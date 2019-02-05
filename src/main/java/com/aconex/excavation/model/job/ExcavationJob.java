@@ -1,4 +1,4 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.job;
 
 import com.aconex.excavation.enums.ActionType;
 
@@ -28,6 +28,9 @@ public class ExcavationJob implements  IExcavationJob{
 
     @Override
     public List<IInstruction> instructions() { return instructions; }
+
+    @Override
+    public void addToInstructions(IInstruction instruction){instructions.add(instruction);};
 
     @Override
     public List<IInstruction> billableInstructions() {

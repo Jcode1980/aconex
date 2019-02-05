@@ -1,5 +1,6 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.job;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class Site implements ISite{
     @Override
     public ITerrain terrainForCoordinate(Point point) {
 
-        return getTerrainsMap().get(point.getY()).get(point.getX());
+        return getTerrainsMap().get((int)point.getY()).get((int)point.getX());
     }
 
     private ArrayList<ArrayList<ITerrain>> getTerrainsMap(){return terrainsMap;}
@@ -72,8 +73,7 @@ public class Site implements ISite{
 
     @Override
     public boolean coordinatesAreValid(Point point) {
-        return  coordinatesAreWithinBoundary(point.getX(), point.getY());
-
+        return  coordinatesAreWithinBoundary((int)point.getX(), (int)point.getY());
     }
 
 

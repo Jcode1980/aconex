@@ -1,12 +1,11 @@
 package com.aconex.excavation;
 
-import com.aconex.excavation.model.IExcavationJob;
-import com.aconex.excavation.model.IInvoice;
-import com.aconex.excavation.model.Invoice;
-import com.aconex.excavation.service.ExcavationService;
-import com.aconex.excavation.service.FinanceService;
-import com.aconex.excavation.service.IExcavationService;
-import com.aconex.excavation.service.IFinanceService;
+import com.aconex.excavation.model.job.IExcavationJob;
+import com.aconex.excavation.model.invoice.IInvoice;
+import com.aconex.excavation.service.job.ExcavationService;
+import com.aconex.excavation.service.invoice.FinanceService;
+import com.aconex.excavation.service.job.IExcavationService;
+import com.aconex.excavation.service.invoice.IFinanceService;
 
 import java.util.Scanner;
 

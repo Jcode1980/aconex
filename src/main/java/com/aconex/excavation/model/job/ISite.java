@@ -1,5 +1,6 @@
-package com.aconex.excavation.model;
+package com.aconex.excavation.model.job;
 
+import java.awt.*;
 import java.util.List;
 
 public interface ISite {

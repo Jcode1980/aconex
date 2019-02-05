@@ -1,6 +1,6 @@
-package com.aconex.excavation.service;
+package com.aconex.excavation.service.job;
 
-import com.aconex.excavation.model.IExcavationJob;
+import com.aconex.excavation.model.job.IExcavationJob;
 
 
 public interface IExcavationService {

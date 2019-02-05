@@ -1,10 +1,11 @@
-package com.aconex.excavation.service;
+package com.aconex.excavation.service.job;
 
 import com.aconex.excavation.enums.ActionType;
 import com.aconex.excavation.enums.CardinalPoint;
 import com.aconex.excavation.enums.RotationDirection;
-import com.aconex.excavation.model.*;
+import com.aconex.excavation.model.job.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -22,15 +23,14 @@ public class ExcavationService implements IExcavationService{
     @Override
     public IExcavationJob createExcavationJob(String filePath) throws IOException{
         Site newSite = new Site(filePath);
-        IExcavator excavator = new Excavator();
-        excavator.setCardinalPoint(CardinalPoint.EAST);
+        IExcavator excavator = new Excavator(CardinalPoint.EAST);
         return  new ExcavationJob(newSite, excavator);
     }
 
     @Override
     public void startExcavationJob(IExcavationJob excavationJob) {
         if(excavationJob == null){throw new NullPointerException("job must not be null");}
-        moveAndExcavate(excavationJob, new Point(0,0));
+        moveAndExcavate(excavationJob, excavationJob.excavator().nextMoveCoordinates());
     }
 
 
@@ -45,7 +45,7 @@ public class ExcavationService implements IExcavationService{
 
         //create instruction
         if(actionType != null){
-            instruction = new Instruction(actionType, getUnitsFromCommand(commmand));
+            instruction = new Instruction(actionType, getUnitsFromCommand(commmand).orElse(null));
         }
         else{
             //FIXME: throw a more meaningfull exception
@@ -82,7 +82,7 @@ public class ExcavationService implements IExcavationService{
             IInstruction instruction = instructionForCommand(command);
 
             //adding instruction to instructions list of job.
-            job.instructions().add(instruction);
+            job.addToInstructions(instruction);
 
             ActionType actionType = instruction.actionType();
             switch (actionType) {
@@ -132,16 +132,22 @@ public class ExcavationService implements IExcavationService{
     }
 
 
-    private void moveAndExcavate(IExcavationJob job, Point point){
-        int totalFuelUsed = job.excavator().move(point);
+//    private void moveAndExcavate(IExcavationJob job){
+//        int totalFuelUsed = job.excavator().move();
+//        Point newPoint = job.excavator().nextMoveCoordinates();
+//
+//        ITerrain terrain = job.site().terrainForCoordinate(newPoint);
+//        if(!terrain.hasBeenExcavated()){
+//            totalFuelUsed = totalFuelUsed + job.excavator().excavateTerrain(terrain);
+//        }
+//
+//        job.excavator().addToFuelUsed(totalFuelUsed);
+//    }
 
+    private void moveAndExcavate(IExcavationJob job, Point point ){
         ITerrain terrain = job.site().terrainForCoordinate(point);
-        if(!terrain.hasBeenExcavated()){
-            totalFuelUsed = totalFuelUsed + job.excavator().excavateTerrain(terrain);
-        }
+        job.excavator().moveAndExcavate(terrain);
 
-        job.excavator().addToFuelUsed(totalFuelUsed);
     }
-
 
 }
