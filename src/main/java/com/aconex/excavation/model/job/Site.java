@@ -14,6 +14,10 @@ public class Site implements ISite{
     private Integer width;
     private Integer height;
 
+    public Site(String filePath) throws IOException{
+        terrainsMap = createTerrainsMap(filePath);
+    }
+
     @Override
     public String represenationalMap() {
         StringBuilder sb = new StringBuilder();
@@ -35,9 +39,7 @@ public class Site implements ISite{
 
     private ArrayList<ArrayList<ITerrain>> getTerrainsMap(){return terrainsMap;}
 
-    public Site(String filePath) throws IOException{
-        terrainsMap = createTerrainsMap(filePath);
-    }
+
 
     private ArrayList<ArrayList<ITerrain>> createTerrainsMap(String filePath) throws IOException{
         ArrayList<ArrayList<ITerrain>> localTerransMap =new ArrayList<>();
@@ -59,14 +61,14 @@ public class Site implements ISite{
                     x++;
                 }
 
-                if(getWidth() == null){ width = (x + 1); }
-                else if(getWidth() != (x +1)){
+                if(getWidth() == null){ width = x ; }
+                else if(getWidth() != x){
                     throw new IllegalArgumentException("Illegal amount of columns");
                 }
                 localTerransMap.add(localRow);
                 y++;
             }
-            height = (y+1);
+            height = y;
         }
         return localTerransMap;
     }
