@@ -11,9 +11,9 @@ public interface ISite {
 
     boolean coordinatesAreValid(Point point);
 
-    List<ITerrain> clearedTerrains();
-
     List<ITerrain> nonClearedTerrains();
+
+    List<ITerrain> clearedTerrains();
 
     List<ITerrain> clearedRockyTerrains();
 

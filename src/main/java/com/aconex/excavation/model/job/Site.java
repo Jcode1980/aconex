@@ -75,9 +75,9 @@ public class Site implements ISite{
 
     @Override
     public boolean coordinatesAreValid(Point point) {
+        if(point == null){throw new NullPointerException("point must not be null");}
         return  coordinatesAreWithinBoundary((int)point.getX(), (int)point.getY());
     }
-
 
     @Override
     public List<ITerrain> clearedTerrains() {

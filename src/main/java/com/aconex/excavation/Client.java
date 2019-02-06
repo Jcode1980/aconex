@@ -7,6 +7,8 @@ import com.aconex.excavation.service.invoice.FinanceService;
 import com.aconex.excavation.service.job.IExcavationService;
 import com.aconex.excavation.service.invoice.IFinanceService;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class Client {
@@ -14,10 +16,14 @@ public class Client {
     private IExcavationJob excavationJob;
     private IFinanceService financeService;
 
-    Client(String filePath) throws Exception{
+    private InputStream commandsStream;
+
+    Client(String filePath, InputStream commandsStream) throws IOException {
+
         excavationService = ExcavationService.excavationService();
         financeService = FinanceService.financeService();
         excavationJob  = excavationService.createExcavationJob(filePath);
+        this.commandsStream = commandsStream;
     }
 
     public void startExcavationSimluator(){
@@ -38,7 +44,8 @@ public class Client {
         System.out.print("(l)eft, (r)ight, (a)dvance <n>, (q)uit: ");
 
         // create a scanner so we can read the command-line input
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(commandsStream);
         String commandStr;
 
         while (!(commandStr = scanner.nextLine()).equals("q")) {

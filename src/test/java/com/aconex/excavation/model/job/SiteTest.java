@@ -29,11 +29,8 @@ public class SiteTest {
     public void setUp() throws Exception {
         site = new Site(TEST_MAPS_FILE);
         rockyTerrainType = TerrainType.terrainTypeForChar('r');
-
         when(pointMock.getX()).thenReturn(1d);
         when(pointMock.getY()).thenReturn(2d);
-
-
     }
 
     @After
@@ -68,6 +65,12 @@ public class SiteTest {
         assertFalse(site.coordinatesAreValid(new Point(-1,0)));
         assertFalse(site.coordinatesAreValid(new Point(0,-1)));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void coordinatesAreValid_shouldThrowExceptionWhenPassedNullValue() {
+        site.coordinatesAreValid(null);
+    }
+
 
     @Test
     public void clearedTerrains() {

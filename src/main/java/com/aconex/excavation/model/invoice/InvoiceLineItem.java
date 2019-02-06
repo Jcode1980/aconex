@@ -26,4 +26,8 @@ public class InvoiceLineItem implements IInvoiceLineItem {
     public String displayString(){
         return costType.getName() + "\t\t\t\t" + units + "\t\t" + creditAmount();
     }
+
+    public CostType costType(){ return costType; }
+
+    public Integer units(){ return units;}
 }

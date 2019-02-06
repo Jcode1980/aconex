@@ -5,8 +5,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
 import java.util.Optional;
@@ -14,6 +16,7 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InstructionTest {
     private IInstruction instruction;
 
@@ -21,8 +24,10 @@ public class InstructionTest {
     @Mock
     private TerrainType terrainTypeMock;
 
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    //this can be used instead of runwith(MockitoJUnitRunner.class)
+    //@Rule
+    //public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setUp() throws Exception {

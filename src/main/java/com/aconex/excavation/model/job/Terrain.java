@@ -5,7 +5,7 @@ public class Terrain implements ITerrain{
     private boolean hasBeenExcavated = false;
 
 
-    Terrain(TerrainType terrainType){
+    public Terrain(TerrainType terrainType){
         if(terrainType == null){throw new NullPointerException("Terrain type must not be null");}
 
         this.terrainType = terrainType;

@@ -10,7 +10,7 @@ public class Application {
 
     static private void initializeClient(String[] args){
         try{
-            Client client = new Client( args.length > 0 ? args[0] : new File("src/main/resources/SiteMap.txt").getAbsolutePath());
+            Client client = new Client( args.length > 0 ? args[0] : new File("src/main/resources/SiteMap.txt").getAbsolutePath(), System.in);
             client.startExcavationSimluator();
         }catch (Exception e){
             e.printStackTrace();

@@ -16,14 +16,6 @@ public class CostType {
 
     static private List<CostType> costTypes = new ArrayList<>();
 
-    private CostType(String name, Integer perUnitCost){
-        this.name = name;
-        this.perUnitCost = perUnitCost;
-    }
-
-    public String getName(){return name;}
-    public Integer getPerUnitCost(){return perUnitCost;}
-
     //FIXME move this out somewhere
     static{
         costTypes.add(new CostType(COMMUNICATION_OVERHEAD_TYPE, 1));
@@ -32,6 +24,16 @@ public class CostType {
         costTypes.add(new CostType(DESTRUCTION_OF_PROTECTED_TREE_TYPE, 10));
         costTypes.add(new CostType(PAINT_DAMAGE_TO_BULLDOZERG_TYPE, 2));
     }
+
+    public CostType(String name, Integer perUnitCost){
+        this.name = name;
+        this.perUnitCost = perUnitCost;
+    }
+
+    public String getName(){return name;}
+    public Integer getPerUnitCost(){return perUnitCost;}
+
+
 
 
 

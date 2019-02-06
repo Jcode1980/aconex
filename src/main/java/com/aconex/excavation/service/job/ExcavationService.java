@@ -99,9 +99,9 @@ public class ExcavationService implements IExcavationService{
                     continueJob = false;
 
             }
-        } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("Exception occurred when processing Action" + command);
-            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Unknown command given. Please enter valid command");
+            //e.printStackTrace();
         }
 
         return continueJob;

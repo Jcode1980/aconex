@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class TerrainType {
+public class TerrainType {
     static private List<TerrainType> terrainTypes = new ArrayList<>();
 
     private String name;
@@ -12,26 +12,32 @@ class TerrainType {
     private Integer excavationFuelCost;
 
     @SuppressWarnings("WeakerAccess")
-    static public String PLAIN = "Plain";
+    static public final String PLAIN = "Plain";
+    @SuppressWarnings("WeakerAccess")
+    static public final String ROCKY = "Rocky";
+    @SuppressWarnings("WeakerAccess")
+    static public final String REMOVABLE_TREE = "Removable Tree";
+    @SuppressWarnings("WeakerAccess")
+    static public final String PRESERVED_TREE = "Preserved Tree";
 
     @SuppressWarnings("WeakerAccess")
-    static public String ROCKY = "Rocky";
-
+    static public final char PLAIN_CODE = 'o';
     @SuppressWarnings("WeakerAccess")
-    static public String REMOVABLE_TREE = "Removable Tree";
-
+    static public final char ROCKY_CODE = 'r';
     @SuppressWarnings("WeakerAccess")
-    static public String PRESERVED_TREE = "Preserved Tree";
+    static public final char REMOVABLE_TREE_CODE = 't';
+    @SuppressWarnings("WeakerAccess")
+    static public final char PRESERVED_TREE_CODE = 'T';
 
 
     static{
-        terrainTypes.add(new TerrainType(PLAIN, 'o', 0));
-        terrainTypes.add(new TerrainType(ROCKY, 'r', 1));
-        terrainTypes.add(new TerrainType(REMOVABLE_TREE, 't', 1));
-        terrainTypes.add(new TerrainType(PRESERVED_TREE, 'T', 1));
+        terrainTypes.add(new TerrainType(PLAIN, PLAIN_CODE, 0));
+        terrainTypes.add(new TerrainType(ROCKY, ROCKY_CODE, 1));
+        terrainTypes.add(new TerrainType(REMOVABLE_TREE, REMOVABLE_TREE_CODE, 1));
+        terrainTypes.add(new TerrainType(PRESERVED_TREE, PRESERVED_TREE_CODE, 1));
     }
 
-    private TerrainType(String name, char code, Integer excavationFuelCost){
+    public TerrainType(String name, char code, Integer excavationFuelCost){
         this.name = name;
         this.code = code;
         this.excavationFuelCost = excavationFuelCost;
@@ -47,7 +53,7 @@ class TerrainType {
         return code;
     }
 
-    static TerrainType terrainTypeForChar(char c){
+    public static TerrainType terrainTypeForChar(char c){
         return terrainTypes.stream().filter(terrain -> terrain.getCode() == c).findFirst().orElseThrow(() ->
                 new IllegalArgumentException("terrain with code: " + c + " not found"));
     }
