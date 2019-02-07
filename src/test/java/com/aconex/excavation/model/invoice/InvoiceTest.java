@@ -1,61 +1,75 @@
 package com.aconex.excavation.model.invoice;
 
+import com.aconex.excavation.model.CostType;
 import com.aconex.excavation.model.job.ExcavationJob;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
+import static com.aconex.excavation.model.CostType.FUEL_USAGE_TYPE;
+import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.is;
 
 
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InvoiceTest {
+    private IInvoice invoice;
     @Mock
     private ExcavationJob jobMock;
 
     @Mock
     private InvoiceLineItem invoiceItemMock;
 
-    private static final String LINE_ITEM_TEST_STRING = "Example Cost Type " + "\t\t\t\t" + "2" + "\t\t" + "20";
-    private static final String INVOICE_DISPLAY_STRING_TEST = "Item\t\t\t\t Quantity\t\tCost\n";
+    @Mock
+    private CostType costTypeMock;
 
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
-
+    private static final Integer MOCK_INVOICE_ITEM_UNITS = 2;
+    private static final Integer MOCK_INVOICE_ITEM_CREDIT_AMOUNT = 4;
 
 
     @Before
     public void setUp(){
-        when(invoiceItemMock.displayString()).thenReturn(LINE_ITEM_TEST_STRING);
+        invoice = new Invoice(jobMock);
+        when(invoiceItemMock.creditAmount()).thenReturn(4);
+        when(invoiceItemMock.units()).thenReturn(2);
+        when(invoiceItemMock.costType()).thenReturn(costTypeMock);
+        when(costTypeMock.getName()).thenReturn(FUEL_USAGE_TYPE);
+
+
+    }
+
+    @After
+    public void tearDown(){
+        invoice = null;
     }
 
     //this would be an integration test.
     //how would u unit test invoiceItems()?
     @Test
     public void invoiceItems() {
-        Invoice invoice = new Invoice(jobMock);
         invoice.addToInvoiceItems(invoiceItemMock);
-
         assertEquals(1, invoice.invoiceItems().size());
         assertEquals(invoiceItemMock, invoice.invoiceItems().get(0));
     }
 
     @Test
     public void job() {
-        IInvoice invoice = new Invoice(jobMock);
         assertThat(invoice.job(), is(jobMock));
     }
 
-    //this would be an integration test.
-    //how would u unit test addToInvoiceItems()?
+
     @Test
     public void addToInvoiceItems() {
-        Invoice invoice = new Invoice(jobMock);
         invoice.addToInvoiceItems(invoiceItemMock);
         assertEquals(invoice.invoiceItems().size(), 1);
         assertEquals(invoice.invoiceItems().get(0), invoiceItemMock);
@@ -63,14 +77,16 @@ public class InvoiceTest {
 
     @Test
     public void costsDisplayString() {
-        Invoice invoice = new Invoice(jobMock);
         invoice.addToInvoiceItems(invoiceItemMock);
 
-        StringBuilder expectedStringB = new StringBuilder("Item\t\t\t\t Quantity\t\tCost\n");
-        expectedStringB.append(INVOICE_DISPLAY_STRING_TEST);
+        String costsDisplayString = invoice.costsDisplayString();
 
-        assertEquals(expectedStringB.toString(), invoice.costsDisplayString());
-
+        assertThat(costsDisplayString, containsString(FUEL_USAGE_TYPE));
+        assertThat(costsDisplayString, containsString(MOCK_INVOICE_ITEM_UNITS+""));
+        assertThat(costsDisplayString, containsString(MOCK_INVOICE_ITEM_CREDIT_AMOUNT+""));
+        assertThat(costsDisplayString, containsString("Item"));
+        assertThat(costsDisplayString, containsString("Quantity"));
+        assertThat(costsDisplayString, containsString("Cost"));
 
     }
 }

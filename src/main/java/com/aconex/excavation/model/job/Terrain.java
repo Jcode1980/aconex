@@ -12,7 +12,12 @@ public class Terrain implements ITerrain{
     }
 
     @Override
-    public void excavate() { hasBeenExcavated = true; }
+    public Integer excavate() {
+        hasBeenExcavated = true;
+        System.out.println("Excavating: " + terrainType.getName() +
+                " returning excationfueld cost: " + terrainType.getExcavationFuelCost());
+        return terrainType.getExcavationFuelCost();
+    }
 
     @Override
     public boolean hasBeenExcavated() {

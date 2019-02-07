@@ -9,7 +9,7 @@ public interface IExcavationService {
 
     IExcavationJob createExcavationJob(String filePath) throws IOException;
 
-    void startExcavationJob(IExcavationJob excavationJob);
+//    void startExcavationJob(IExcavationJob excavationJob);
 
     //moves
     boolean processCommandForJob(String command, IExcavationJob excavationJo);

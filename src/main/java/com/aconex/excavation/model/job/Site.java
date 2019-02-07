@@ -26,10 +26,16 @@ public class Site implements ISite{
 
                 sb.append(terrain.getCode());
             }
-            sb.append("\n");
+
+            //only print new line if row is not the last object in list
+            if(!((Integer)terrainsMap.indexOf(row)).equals(terrainsMap.size()-1)) {
+                sb.append("\n");
+            }
         }
         return sb.toString();
     }
+
+
 
     @Override
     public ITerrain terrainForCoordinate(Point point) {
@@ -56,7 +62,7 @@ public class Site implements ISite{
                     TerrainType terrainType = TerrainType.terrainTypeForChar(chars[x]);
                     //localTerransMap[y][x] = new Terrain(terrainType);
                     ITerrain newTerrain = new Terrain(terrainType);
-                    System.out.println("Adding Terrain: " +  newTerrain.getCode() + " to  " + x);
+                    //System.out.println("Adding Terrain: " +  newTerrain.getCode() + " to  " + x);
                     localRow.add(newTerrain);
                     x++;
                 }
@@ -66,6 +72,7 @@ public class Site implements ISite{
                     throw new IllegalArgumentException("Illegal amount of columns");
                 }
                 localTerransMap.add(localRow);
+
                 y++;
             }
             height = y;
@@ -76,7 +83,9 @@ public class Site implements ISite{
     @Override
     public boolean coordinatesAreValid(Point point) {
         if(point == null){throw new NullPointerException("point must not be null");}
-        return  coordinatesAreWithinBoundary((int)point.getX(), (int)point.getY());
+        boolean coordinatesAreWithinBoundary = coordinatesAreWithinBoundary((int)point.getX(), (int)point.getY());
+        //return  coordinatesAreWithinBoundary((int)point.getX(), (int)point.getY());
+        return coordinatesAreWithinBoundary;
     }
 
     @Override
@@ -117,12 +126,16 @@ public class Site implements ISite{
     }
 
     private boolean coordinatesAreWithinBoundary(int x, int y) {
-        return x >= 0 && y >= 0 && getWidth() >= x && getHeight() >= y;
+        System.out.println("get width : " + getWidth() + " get height: " + getHeight());
+        System.out.println("x : " + x + " y : " + y + " getwidth(): " + getWidth() + " getHeight: "  + getHeight());
+        return x >= 0 && y >= 0 && getWidth() > x && getHeight() > y;
     }
 
-    private Integer getWidth(){return width;}
+    @Override
+    public Integer getWidth(){return width;}
 
-    private Integer getHeight(){return height;}
+    @Override
+    public Integer getHeight(){return height;}
 
 
 

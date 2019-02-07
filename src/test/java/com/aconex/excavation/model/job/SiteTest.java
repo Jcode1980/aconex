@@ -58,7 +58,7 @@ public class SiteTest {
 
     @Test
     public void coordinatesAreValid() {
-        assertTrue(site.coordinatesAreValid(new Point(10,5)));
+        assertTrue(site.coordinatesAreValid(new Point(9,4)));
 
         assertFalse(site.coordinatesAreValid(new Point(11,5)));
         assertFalse(site.coordinatesAreValid(new Point(10,6)));

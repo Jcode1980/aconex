@@ -4,13 +4,11 @@ import com.aconex.excavation.enums.CardinalPoint;
 import com.aconex.excavation.enums.RotationDirection;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
-
+import org.mockito.junit.MockitoJUnitRunner;
 import java.awt.*;
 
 import static org.hamcrest.Matchers.is;
@@ -18,29 +16,24 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ExcavatorTest {
     private IExcavator excavator;
 
     @Mock
     private Terrain terrainMock;
 
-    @Mock
-    private TerrainType terrainTypeMock;
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         excavator = new Excavator(CardinalPoint.EAST);
 
-        when(terrainTypeMock.getExcavationFuelCost()).thenReturn(1);
-        when(terrainMock.terrainType()).thenReturn(terrainTypeMock);
+        when(terrainMock.excavate()).thenReturn(1);
 
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         excavator = null;
     }
 

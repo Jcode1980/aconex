@@ -16,6 +16,5 @@ public interface IExcavator {
 
     Integer fuelUsed();
 
-    void addToFuelUsed(Integer fuelAmount);
-
+    void place(Point point);
 }

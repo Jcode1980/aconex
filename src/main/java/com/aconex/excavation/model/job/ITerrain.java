@@ -5,7 +5,7 @@ public interface ITerrain {
     boolean hasBeenExcavated();
 
 
-    void excavate();
+    Integer excavate();
 
     String getCode();
 

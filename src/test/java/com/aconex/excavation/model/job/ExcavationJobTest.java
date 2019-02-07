@@ -4,8 +4,10 @@ import com.aconex.excavation.enums.ActionType;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import static org.hamcrest.collection.IsArrayContaining.hasItemInArray;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
+
+@RunWith(MockitoJUnitRunner.class)
 public class ExcavationJobTest {
     private IExcavationJob excavationJob;
 
@@ -29,8 +33,6 @@ public class ExcavationJobTest {
     @Mock
     private Instruction advanceInstructionMock;
 
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setUp(){
@@ -38,8 +40,6 @@ public class ExcavationJobTest {
         excavationJob.addToInstructions(advanceInstructionMock);
         excavationJob.addToInstructions(quitInstructionMock);
 
-        when(advanceInstructionMock.actionType()).thenReturn(ActionType.ADVANCE);
-        when(quitInstructionMock.actionType()).thenReturn(ActionType.QUIT);
     }
 
     @Test

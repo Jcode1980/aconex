@@ -34,10 +34,4 @@ public class InvoiceLineItemTest {
     public void creditAmount() {
         assertEquals(new Integer(20), invoiceLineItem.creditAmount());
     }
-
-    @Test
-    public void displayString() {
-        String expectedString = costTypeMock.getName() + "\t\t\t\t" + 2 + "\t\t" + 20;
-        assertEquals(expectedString, invoiceLineItem.displayString());
-    }
 }

@@ -1,6 +1,7 @@
 package com.aconex.excavation.model.invoice;
 
 import com.aconex.excavation.model.job.IExcavationJob;
+import com.sun.deploy.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,16 @@ public class Invoice implements IInvoice{
 
     @Override
     public String costsDisplayString(){
+        String format = "%-45s%20s%20s%n";
         StringBuilder sb = new StringBuilder();
-        sb.append("Item\t\t\t\t Quantity\t\tCost\n");
+        sb.append(String.format(format, "Item", "Quantity", "Cost"));
 
-        for(IInvoiceLineItem invoiceItems : invoiceItems()){
-            sb.append(invoiceItems.displayString());
-            sb.append("\n");
+        for(IInvoiceLineItem lineItem : invoiceItems()){
+            //sb.append(invoiceItems.displayString());
+            sb.append(String.format(format, lineItem.costType().getName(), lineItem.units(), lineItem.creditAmount()));
         }
 
         return sb.toString();
     }
+
 }

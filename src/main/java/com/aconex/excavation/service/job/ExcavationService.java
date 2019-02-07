@@ -24,14 +24,18 @@ public class ExcavationService implements IExcavationService{
     public IExcavationJob createExcavationJob(String filePath) throws IOException{
         Site newSite = new Site(filePath);
         IExcavator excavator = new Excavator(CardinalPoint.EAST);
+
+        //Setting starting point to be top left of the site
+        //excavator.place(new Point(-1, (newSite.getHeight()-1)));
+        excavator.place(new Point(-1, 0));
         return  new ExcavationJob(newSite, excavator);
     }
 
-    @Override
-    public void startExcavationJob(IExcavationJob excavationJob) {
-        if(excavationJob == null){throw new NullPointerException("job must not be null");}
-        moveAndExcavate(excavationJob, excavationJob.excavator().nextMoveCoordinates());
-    }
+//    @Override
+//    public void startExcavationJob(IExcavationJob excavationJob) {
+//        if(excavationJob == null){throw new NullPointerException("job must not be null");}
+//        moveAndExcavate(excavationJob, excavationJob.excavator().nextMoveCoordinates());
+//    }
 
 
     //FIXME .. deal with no action types found??
@@ -123,7 +127,7 @@ public class ExcavationService implements IExcavationService{
                 moveAndExcavate(job, point);
             }
             else{
-                System.out.println("point is valid: false");
+                System.out.println("******* Error. Exavator is trying to move to an invalid spot. Simulation Terminated********");
                 return false;
             }
             i++;

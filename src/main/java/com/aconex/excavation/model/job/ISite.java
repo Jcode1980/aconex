@@ -19,4 +19,8 @@ public interface ISite {
 
     List<ITerrain> clearedProtectedTreesTerrains();
 
+    Integer getHeight();
+
+    Integer getWidth();
+
 }

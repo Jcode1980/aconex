@@ -28,7 +28,7 @@ public class Client {
 
     public void startExcavationSimluator(){
         //do something here
-        excavationService.startExcavationJob(excavationJob);
+        //excavationService.startExcavationJob(excavationJob);
         System.out.println("the cardinal point is: " + excavationJob.excavator().getCardinalPoint());
         wellcomPhase();
 
@@ -36,21 +36,21 @@ public class Client {
 
     private void wellcomPhase(){
         System.out.println("Welcome to the Aconex site clearing simulator. This is a map of\n" +
-                "the site:\n\n");
+                "the site:\n");
         System.out.println(excavationJob.site().represenationalMap());
         System.out.println("The bulldozer is currently located at the Northern edge of the\n" +
                 "site, immediately to the West of the site, and facing East.:\n\n");
-
-        System.out.print("(l)eft, (r)ight, (a)dvance <n>, (q)uit: ");
 
         // create a scanner so we can read the command-line input
         //Scanner scanner = new Scanner(System.in);
         Scanner scanner = new Scanner(commandsStream);
         String commandStr;
 
-        while (!(commandStr = scanner.nextLine()).equals("q")) {
-            boolean commandWasRun = excavationService.processCommandForJob(commandStr, excavationJob);
+        boolean continueProgram = true;
+        while (continueProgram) {
             System.out.print("(l)eft, (r)ight, (a)dvance <n>, (q)uit: ");
+            commandStr = scanner.nextLine();
+            continueProgram = excavationService.processCommandForJob(commandStr, excavationJob);
         }
 
         endPhase();
@@ -65,6 +65,10 @@ public class Client {
         IInvoice invoice = financeService.invoiceForJob(excavationJob);
 
         System.out.println(invoice.costsDisplayString());
+    }
+
+    public IExcavationJob job(){
+        return excavationJob;
     }
 
 }

@@ -6,9 +6,12 @@ import com.aconex.excavation.enums.RotationDirection;
 import java.awt.*;
 
 public class Excavator implements IExcavator{
+    private static final int FUEL_COST_FOR_ONE_MOVE = 1;
+
     private Point point;
     private CardinalPoint cardinalPoint;
     private Integer fuelUsed = 0;
+
 
     @Override
     public void rotate(RotationDirection direction) {
@@ -29,17 +32,22 @@ public class Excavator implements IExcavator{
         return fuelUsed;
     }
 
-    @Override
-    public void addToFuelUsed(Integer fuelAmount) {
-        fuelUsed = fuelUsed + fuelAmount;
-    }
 
 
     private Integer excavateTerrain(ITerrain terrain) {
-        //if(terrain == null){throw new NullPointerException("terrain must not be null");}
+        Integer excavationCost = 0;
 
-        terrain.excavate();
-        return terrain.terrainType().getExcavationFuelCost();
+        if(!terrain.hasBeenExcavated()){
+            excavationCost = terrain.excavate();
+        }
+
+        return excavationCost;
+
+    }
+
+    @Override
+    public void place(Point point){
+        this.point = point;
     }
 
     @Override
@@ -56,13 +64,13 @@ public class Excavator implements IExcavator{
 
             switch(direction) {
                 case NORTH:
-                    newY=newY+ 1;
+                    newY=newY - 1;
                     break;
                 case EAST:
                     newX =newX + 1;
                     break;
                 case SOUTH:
-                    newY = newY - 1;
+                    newY = newY + 1;
                     break;
                 case WEST:
                     newX = newX - 1;
@@ -78,13 +86,12 @@ public class Excavator implements IExcavator{
     //this function assumes that point ONLY move 1 unit at a time
     public void moveAndExcavate(ITerrain terrain){
         //if(point == null){throw new NullPointerException("point must not be null");}
-        fuelUsed = fuelUsed + 1;
-
         this.point = nextMoveCoordinates();
 
-        if(!terrain.hasBeenExcavated()){
-            fuelUsed = fuelUsed + excavateTerrain(terrain);
-        }
+        fuelUsed = fuelUsed + FUEL_COST_FOR_ONE_MOVE;
+
+        fuelUsed = fuelUsed + excavateTerrain(terrain);
+
     }
 
     private boolean isOnSite() { return point != null;}
