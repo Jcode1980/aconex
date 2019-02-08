@@ -41,11 +41,11 @@ public class SiteTest {
     @Test
     public void represenationalMap() {
         String expectedMap =
-                "ootooooooo\n" +
-                "oooooooToo\n" +
-                "rrrooooToo\n" +
-                "rrrroooooo\n" +
-                "rrrrrtoooo";
+                "o o t o o o o o o o \n" +
+                "o o o o o o o T o o \n" +
+                "r r r o o o o T o o \n" +
+                "r r r r o o o o o o \n" +
+                "r r r r r t o o o o ";
 
         assertThat(site.represenationalMap(), is(expectedMap));
     }

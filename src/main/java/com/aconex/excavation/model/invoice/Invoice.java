@@ -1,7 +1,6 @@
 package com.aconex.excavation.model.invoice;
 
 import com.aconex.excavation.model.job.IExcavationJob;
-import com.sun.deploy.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

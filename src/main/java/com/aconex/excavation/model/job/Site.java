@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Site implements ISite{
+    public static String MAP_CODE_FORMAT = "%-2s";
     private ArrayList<ArrayList<ITerrain>> terrainsMap;
 
     private Integer width;
@@ -24,7 +25,7 @@ public class Site implements ISite{
         for(ArrayList<ITerrain> row : terrainsMap){
             for(ITerrain terrain : row){
 
-                sb.append(terrain.getCode());
+                sb.append(String.format(MAP_CODE_FORMAT,terrain.getCode()));
             }
 
             //only print new line if row is not the last object in list
