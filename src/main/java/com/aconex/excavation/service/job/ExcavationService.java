@@ -3,10 +3,12 @@ package com.aconex.excavation.service.job;
 import com.aconex.excavation.enums.ActionType;
 import com.aconex.excavation.enums.CardinalPoint;
 import com.aconex.excavation.enums.RotationDirection;
+import com.aconex.excavation.model.CostType;
 import com.aconex.excavation.model.job.*;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -153,5 +155,8 @@ public class ExcavationService implements IExcavationService{
         job.excavator().moveAndExcavate(terrain);
 
     }
+
+
+
 
 }

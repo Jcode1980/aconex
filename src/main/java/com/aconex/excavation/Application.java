@@ -15,6 +15,8 @@ public class Application {
 
     static private void initializeClient(String[] args){
         try{
+            //InputStream in = getResourceAsStream(DEMO_SITE_MAP);
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
             String mapsFile = args.length > 0 ? args[0] : Paths.get(DEMO_SITE_MAP).toString();
             System.out.println("using maps file: " + mapsFile);

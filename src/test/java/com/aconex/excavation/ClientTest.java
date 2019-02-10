@@ -6,6 +6,7 @@ import com.aconex.excavation.model.job.IExcavator;
 import com.aconex.excavation.model.job.Instruction;
 import com.aconex.excavation.service.job.ExcavationService;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +28,8 @@ public class ClientTest {
     private static final String TEST_MAPS_FILE = "src/main/resources/test/TestMap.txt";
     private static final String TEST_INSTRUCTIONS_FILE="src/main/resources/test/TestInstructionsFile.txt";
     private static final String TEST_INSTRUCTIONS_OFB_FILE="src/main/resources/test/TestInstructionsOutOfBounds.txt";
+    private static final String TEST_INSTRUCTIONS_BOUNDARIES_FILE="src/main/resources/test/TestInstructionsBoundariesFile.txt";
+    private static final String OUT_OF_BOUNDS_ERROR_MESSAGE="******* Error. Exavator is trying to move to an invalid spot. Simulation Terminated********";
 
     @Mock
     private ExcavationService excavationService;
@@ -64,12 +67,24 @@ public class ClientTest {
 
 
     @Test
-    public void IT_processCommandFile_shouldHitBoundaryNotStopSimulation() throws IOException {
+    public void IT_processCommandFile_shouldHitBoundaryAndStopSimulation() throws IOException {
         Path testInstructionsPath = Paths.get(TEST_INSTRUCTIONS_OFB_FILE);
         Client client = new Client(TEST_MAPS_FILE, new FileInputStream(testInstructionsPath.toFile()));
         client.startExcavationSimluator();
         IExcavationJob job = client.job();
-        assertThat(outContent.toString(), containsString("******* Error. Exavator is trying to move to an invalid spot. Simulation Terminated********"));
+        assertThat(outContent.toString(), containsString(OUT_OF_BOUNDS_ERROR_MESSAGE));
+    }
+
+    @Test
+    public void IT_processCommandFile_moveAroundBoundariesAndEndSimulationNormally() throws IOException {
+        Path testInstructionsPath = Paths.get(TEST_INSTRUCTIONS_BOUNDARIES_FILE);
+        Client client = new Client(TEST_MAPS_FILE, new FileInputStream(testInstructionsPath.toFile()));
+        client.startExcavationSimluator();
+        IExcavationJob job = client.job();
+        System.err.println(outContent.toString());
+        assertThat(outContent.toString(), containsString(OUT_OF_BOUNDS_ERROR_MESSAGE));
+
+
     }
 
 }

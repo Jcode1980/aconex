@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class CostTypeTest {
     private CostType costType;
-    private static final String INVALID_COST_TYPE_STRING = "aoaoaoaoaoaoa";
+
     @Before
     public void setUp() throws Exception {
         costType = new CostType(CostType.COMMUNICATION_OVERHEAD_TYPE, 1);
@@ -30,15 +30,5 @@ public class CostTypeTest {
         assertThat(costType.getPerUnitCost(), is(1));
     }
 
-    @Test
-    public void costTypeForString() {
-        CostType localCostType = CostType.costTypeForString(CostType.COMMUNICATION_OVERHEAD_TYPE);
-        assertThat(localCostType.getName(), is(CostType.COMMUNICATION_OVERHEAD_TYPE));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void costTypeForString_shouldReturnIllegalArgumentExceptionWhenSentUnknownString() {
-        CostType.costTypeForString(INVALID_COST_TYPE_STRING);
-    }
 
 }
