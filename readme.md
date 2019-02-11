@@ -79,8 +79,6 @@ Project Discussions
     the invoicing for that job. I have therefore created two services,
     an Excavation Service and a Finance Service.
 
-    Normally i would use Log4j to do all my print outs to console and
-    also use debug levels, but as per requirment, i did not
 
 
 
