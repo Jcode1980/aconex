@@ -9,7 +9,7 @@ The following items should be installed in your system:
 - IntelliJ
 - Java 9
 
-Running The Toy Robot Application
+Running The Aconex Excavation Application
 --------------
 
 **Inside Intellij**
@@ -55,7 +55,7 @@ Running The Toy Robot Application
 
 Assumptions
 ===========
-   -Valid commands with correct formatting is specified within the problems.md are as follows:
+    -Valid commands with correct formatting is specified within the problems.md are as follows:
         l - left
         r - right
         a <n> - advance <n>
