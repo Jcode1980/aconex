@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class FinanceServiceTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         financeService = new FinanceService();
 
         when(jobMock.excavator()).thenReturn(excavatorMock);
@@ -55,7 +54,7 @@ public class FinanceServiceTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()  {
         financeService = null;
     }
 

@@ -15,8 +15,8 @@ Running The Toy Robot Application
 **Inside Intellij**
 - Open project into Intellij
     *Running All Tests*
-    - Click on aconex project within Intellij
-    - Go to Run ->
+    - Right click on src/main/java/com/aconex/excavation/Application.java
+    - Click on "Run All Tests"
 
     *Running main App using default map (src/main/resources/SiteMap.txt)
     - Right click on src/main/java/com/aconex/excavation/Application.java
@@ -77,8 +77,10 @@ Project Discussions
     Whilst reading the task, i saw that the requirements can be split
     into the job of clearing of the site using the bulldozer and then
     the invoicing for that job. I have therefore created two services,
-    an Excavtion Service and a Finance Service.
+    an Excavation Service and a Finance Service.
 
+    Normally i would use Log4j to do all my print outs to console and
+    also use debug levels, but as per requirment, i did not
 
 
 

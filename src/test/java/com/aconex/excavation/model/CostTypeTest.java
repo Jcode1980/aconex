@@ -11,12 +11,12 @@ public class CostTypeTest {
     private CostType costType;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         costType = new CostType(CostType.COMMUNICATION_OVERHEAD_TYPE, 1);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()  {
         costType = null;
     }
 

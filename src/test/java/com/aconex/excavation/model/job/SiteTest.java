@@ -1,5 +1,6 @@
 package com.aconex.excavation.model.job;
 
+import com.aconex.excavation.service.job.ExcavationService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,17 +25,17 @@ public class SiteTest {
     private Point pointMock;
     private TerrainType rockyTerrainType;
 
-
     @Before
     public void setUp() throws Exception {
-        site = new Site(TEST_MAPS_FILE);
-        rockyTerrainType = TerrainType.terrainTypeForChar('r');
+        ExcavationService excavationService = new ExcavationService();
+        site = new Site(excavationService.createTerrainsMap(TEST_MAPS_FILE));
+        rockyTerrainType = excavationService.terrainTypeForChar('r');
         when(pointMock.getX()).thenReturn(1d);
         when(pointMock.getY()).thenReturn(2d);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         site = null;
     }
 

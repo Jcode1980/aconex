@@ -15,8 +15,16 @@ public class Site implements ISite{
     private Integer width;
     private Integer height;
 
-    public Site(String filePath) throws IOException{
-        terrainsMap = createTerrainsMap(filePath);
+//    public Site(String filePath) throws IOException{
+//        terrainsMap = createTerrainsMap(filePath);
+//    }
+
+    public Site(ArrayList<ArrayList<ITerrain>>  terrainsMap) throws IOException{
+        //System.out.println("setting terrains map to : " + terrainsMap.size());
+        this.terrainsMap = terrainsMap;
+
+        height = terrainsMap.size();
+        width = terrainsMap.get(0).size();
     }
 
     @Override
@@ -48,38 +56,38 @@ public class Site implements ISite{
 
 
 
-    private ArrayList<ArrayList<ITerrain>> createTerrainsMap(String filePath) throws IOException{
-        ArrayList<ArrayList<ITerrain>> localTerransMap =new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            int y = 0;
-            String strCurrentLine;
-
-            while((strCurrentLine = br.readLine()) != null){
-                char[] chars  = strCurrentLine.toCharArray();
-                ArrayList<ITerrain> localRow = new ArrayList<>();
-
-                int x =0;
-                while(x < chars.length){
-                    TerrainType terrainType = TerrainType.terrainTypeForChar(chars[x]);
-                    //localTerransMap[y][x] = new Terrain(terrainType);
-                    ITerrain newTerrain = new Terrain(terrainType);
-                    //System.out.println("Adding Terrain: " +  newTerrain.getCode() + " to  " + x);
-                    localRow.add(newTerrain);
-                    x++;
-                }
-
-                if(getWidth() == null){ width = x ; }
-                else if(getWidth() != x){
-                    throw new IllegalArgumentException("Illegal amount of columns");
-                }
-                localTerransMap.add(localRow);
-
-                y++;
-            }
-            height = y;
-        }
-        return localTerransMap;
-    }
+//    private ArrayList<ArrayList<ITerrain>> createTerrainsMap(String filePath) throws IOException{
+//        ArrayList<ArrayList<ITerrain>> localTerransMap =new ArrayList<>();
+//        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+//            int y = 0;
+//            String strCurrentLine;
+//
+//            while((strCurrentLine = br.readLine()) != null){
+//                char[] chars  = strCurrentLine.toCharArray();
+//                ArrayList<ITerrain> localRow = new ArrayList<>();
+//
+//                int x =0;
+//                while(x < chars.length){
+//                    TerrainType terrainType = TerrainType.terrainTypeForChar(chars[x]);
+//                    //localTerransMap[y][x] = new Terrain(terrainType);
+//                    ITerrain newTerrain = new Terrain(terrainType);
+//                    //System.out.println("Adding Terrain: " +  newTerrain.getCode() + " to  " + x);
+//                    localRow.add(newTerrain);
+//                    x++;
+//                }
+//
+//                if(getWidth() == null){ width = x ; }
+//                else if(getWidth() != x){
+//                    throw new IllegalArgumentException("Illegal amount of columns");
+//                }
+//                localTerransMap.add(localRow);
+//
+//                y++;
+//            }
+//            height = y;
+//        }
+//        return localTerransMap;
+//    }
 
     @Override
     public boolean coordinatesAreValid(Point point) {
@@ -127,8 +135,8 @@ public class Site implements ISite{
     }
 
     private boolean coordinatesAreWithinBoundary(int x, int y) {
-        System.out.println("get width : " + getWidth() + " get height: " + getHeight());
-        System.out.println("x : " + x + " y : " + y + " getwidth(): " + getWidth() + " getHeight: "  + getHeight());
+        //System.out.println("get width : " + getWidth() + " get height: " + getHeight());
+        //System.out.println("x : " + x + " y : " + y + " getwidth(): " + getWidth() + " getHeight: "  + getHeight());
         return x >= 0 && y >= 0 && getWidth() > x && getHeight() > y;
     }
 

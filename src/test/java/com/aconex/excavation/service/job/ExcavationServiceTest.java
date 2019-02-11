@@ -13,11 +13,11 @@ import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -53,7 +53,7 @@ public class ExcavationServiceTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         excavationService = new ExcavationService();
         when(jobMock.excavator()).thenReturn(excavatorMock);
         when(jobMock.site()).thenReturn(siteMock);
@@ -65,7 +65,7 @@ public class ExcavationServiceTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         excavationService = null;
     }
 
@@ -73,16 +73,8 @@ public class ExcavationServiceTest {
     public void createExcavationJob() throws IOException {
         IExcavationJob job = excavationService.createExcavationJob(TEST_MAPS_FILE);
         assertNotNull(job.excavator());
-        assertNotNull(job.site() != null);
+        assertNotNull(job.site());
     }
-
-//    @Test
-//    public void startExcavationJob() {
-//        System.out.println("jobMock is null: " + jobMock);
-//        System.out.println("terrainMock is null: " + terrainMock);
-//        excavationService.startExcavationJob(jobMock);
-//        verify(excavatorMock).moveAndExcavate(terrainMock);
-//    }
 
     @Test
     public void processCommandForJob() {
@@ -94,6 +86,13 @@ public class ExcavationServiceTest {
 
         excavationService.processCommandForJob("a 4", jobMock);
         verify(excavatorMock, times(4)).moveAndExcavate(terrainMock);
+    }
+
+    @Test
+    public void createTerrainsMap() throws IOException {
+        ArrayList<ArrayList<ITerrain>> terrainsMap= excavationService.createTerrainsMap(TEST_MAPS_FILE);
+        assertThat(terrainsMap.size(), is(5));
+        assertThat(terrainsMap.get(0).size(), is(10));
     }
 
     @Test
@@ -111,5 +110,18 @@ public class ExcavationServiceTest {
     public void procesCommandForJob_shouldReturnNullPointExceptionWhenGivenNullCommand(){
         excavationService.processCommandForJob(null, jobMock);
     }
+
+    @Test
+    public void terrainTypeForChar() {
+        TerrainType terrainType = excavationService.terrainTypeForChar(TerrainType.REMOVABLE_TREE_CODE);
+        assertThat(terrainType.getName(), is(TerrainType.REMOVABLE_TREE));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void terrainTypeForChar_shouldReturnIllegalArgumentExceptionWhenSentUnknownChar() {
+        excavationService.terrainTypeForChar('z');
+    }
+
+
 
 }
