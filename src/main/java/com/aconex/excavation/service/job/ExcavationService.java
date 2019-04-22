@@ -3,10 +3,11 @@ package com.aconex.excavation.service.job;
 import com.aconex.excavation.enums.ActionType;
 import com.aconex.excavation.enums.CardinalPoint;
 import com.aconex.excavation.enums.RotationDirection;
-import com.aconex.excavation.model.CostType;
 import com.aconex.excavation.model.job.*;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 public class ExcavationService implements IExcavationService{
     static private ExcavationService excavationService;
+    private List<TerrainType> terrainTypes;
 
     public static ExcavationService excavationService(){
         if(excavationService == null){
@@ -24,7 +26,8 @@ public class ExcavationService implements IExcavationService{
 
     @Override
     public IExcavationJob createExcavationJob(String filePath) throws IOException{
-        Site newSite = new Site(filePath);
+
+        Site newSite = new Site(createTerrainsMap(filePath));
         IExcavator excavator = new Excavator(CardinalPoint.EAST);
 
         //Setting starting point to be top left of the site
@@ -66,7 +69,7 @@ public class ExcavationService implements IExcavationService{
 
         if(index != -1) {
             String unitsStr = command.substring(index + 1);
-            System.out.println("the distance is: "  + unitsStr);
+            //System.out.println("the distance is: "  + unitsStr);
             return  Optional.of(Integer.valueOf(unitsStr));
         }
         else{
@@ -82,7 +85,7 @@ public class ExcavationService implements IExcavationService{
         if(job == null){throw new NullPointerException("job must not be null");}
         if(command == null){throw new NullPointerException("command parameter must not be null");}
 
-        System.out.println("Processing command: " + command);
+        //System.out.println("Processing command: " + command);
         boolean continueJob = true;
         try {
             IInstruction instruction = instructionForCommand(command);
@@ -122,9 +125,9 @@ public class ExcavationService implements IExcavationService{
         while(i < units){
             //check excavators next coordinate
             Point point = job.excavator().nextMoveCoordinates();
-            System.out.println("Moving to next move coordinates: " + point);
+            //System.out.println("Moving to next move coordinates: " + point);
             if(job.site().coordinatesAreValid(point)){
-                System.out.println("point is valid: yes");
+                //System.out.println("point is valid: yes");
                 //if Valid.. do the move
                 moveAndExcavate(job, point);
             }
@@ -154,6 +157,49 @@ public class ExcavationService implements IExcavationService{
         ITerrain terrain = job.site().terrainForCoordinate(point);
         job.excavator().moveAndExcavate(terrain);
 
+    }
+
+    public TerrainType terrainTypeForChar(char c){
+        return terrainTypes().stream().filter(terrain -> terrain.getCode() == c).findFirst().orElseThrow(() ->
+                new IllegalArgumentException("terrain with code: " + c + " not found"));
+    }
+
+    private List<TerrainType> terrainTypes(){
+
+        if(terrainTypes == null) {
+            terrainTypes = new ArrayList<>();
+            terrainTypes.add(new TerrainType(TerrainType.PLAIN, TerrainType.PLAIN_CODE, 0));
+            terrainTypes.add(new TerrainType(TerrainType.ROCKY, TerrainType.ROCKY_CODE, 1));
+            terrainTypes.add(new TerrainType(TerrainType.REMOVABLE_TREE, TerrainType.REMOVABLE_TREE_CODE, 1));
+            terrainTypes.add(new TerrainType(TerrainType.PRESERVED_TREE, TerrainType.PRESERVED_TREE_CODE, 1));
+        }
+
+        return terrainTypes;
+    }
+
+    public ArrayList<ArrayList<ITerrain>> createTerrainsMap(String filePath) throws IOException{
+        ArrayList<ArrayList<ITerrain>> localTerransMap =new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
+            String strCurrentLine;
+
+            while ((strCurrentLine = br.readLine()) != null) {
+                char[] chars = strCurrentLine.toCharArray();
+                ArrayList<ITerrain> localRow = new ArrayList<>();
+
+                int x = 0;
+                while (x < chars.length) {
+                    TerrainType terrainType = terrainTypeForChar(chars[x]);
+
+                    ITerrain newTerrain = new Terrain(terrainType);
+                    //System.out.println("Adding Terrain: " +  newTerrain.getCode() + " to  " + x);
+                    localRow.add(newTerrain);
+                    x++;
+                }
+                localTerransMap.add(localRow);
+            }
+        }
+        return localTerransMap;
     }
 
 

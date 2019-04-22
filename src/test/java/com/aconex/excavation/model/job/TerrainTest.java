@@ -1,5 +1,6 @@
 package com.aconex.excavation.model.job;
 
+import com.aconex.excavation.service.job.ExcavationService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,12 +12,14 @@ import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TerrainTest {
+    private ExcavationService excavationService;
     private Terrain terrain;
     private TerrainType terrainType;
 
     @Before
     public void setUp() throws Exception {
-        terrainType = TerrainType.terrainTypeForChar(TerrainType.REMOVABLE_TREE_CODE);
+        excavationService = new ExcavationService();
+        terrainType = excavationService.terrainTypeForChar(TerrainType.REMOVABLE_TREE_CODE);
         terrain = new Terrain(terrainType);
     }
 

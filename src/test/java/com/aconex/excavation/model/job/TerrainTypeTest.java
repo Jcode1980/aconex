@@ -24,16 +24,6 @@ public class TerrainTypeTest {
         assertThat(terrainType.getCode(), is(TerrainType.REMOVABLE_TREE_CODE));
     }
 
-    @Test
-    public void terrainTypeForChar() {
-        TerrainType terrainType = TerrainType.terrainTypeForChar(TerrainType.REMOVABLE_TREE_CODE);
-        assertThat(terrainType.getName(), is(TerrainType.REMOVABLE_TREE));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void terrainTypeForChar_shouldReturnIllegalArgumentExceptionWhenSentUnknownChar() {
-        TerrainType.terrainTypeForChar('z');
-    }
 
 
     @Test

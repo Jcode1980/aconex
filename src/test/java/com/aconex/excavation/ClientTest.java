@@ -77,8 +77,7 @@ public class ClientTest {
         Client client = new Client(TEST_MAPS_FILE, new FileInputStream(testInstructionsPath.toFile()));
         client.startExcavationSimluator();
         IExcavationJob job = client.job();
-        System.err.println(outContent.toString());
-        assertThat(outContent.toString(), containsString(OUT_OF_BOUNDS_ERROR_MESSAGE));
+        assertFalse(outContent.toString().contains(OUT_OF_BOUNDS_ERROR_MESSAGE));
 
 
     }

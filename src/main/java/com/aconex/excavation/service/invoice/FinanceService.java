@@ -5,7 +5,6 @@ import com.aconex.excavation.model.invoice.IInvoice;
 import com.aconex.excavation.model.invoice.Invoice;
 import com.aconex.excavation.model.invoice.InvoiceLineItem;
 import com.aconex.excavation.model.job.IExcavationJob;
-import com.aconex.excavation.service.job.ExcavationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +43,7 @@ public class FinanceService implements IFinanceService {
         return invoice;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public CostType costTypeForString(String label){
         if(label == null){ throw new RuntimeException("label must not be null"); }
 

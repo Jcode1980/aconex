@@ -2,7 +2,6 @@ package com.aconex.excavation.model.invoice;
 
 import com.aconex.excavation.model.CostType;
 
-import java.awt.*;
 
 public class InvoiceLineItem implements IInvoiceLineItem {
     private CostType costType;

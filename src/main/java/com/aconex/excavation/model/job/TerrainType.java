@@ -30,12 +30,7 @@ public class TerrainType {
     static public final char PRESERVED_TREE_CODE = 'T';
 
 
-    static{
-        terrainTypes.add(new TerrainType(PLAIN, PLAIN_CODE, 0));
-        terrainTypes.add(new TerrainType(ROCKY, ROCKY_CODE, 1));
-        terrainTypes.add(new TerrainType(REMOVABLE_TREE, REMOVABLE_TREE_CODE, 1));
-        terrainTypes.add(new TerrainType(PRESERVED_TREE, PRESERVED_TREE_CODE, 1));
-    }
+
 
     public TerrainType(String name, char code, Integer excavationFuelCost){
         this.name = name;
@@ -53,10 +48,6 @@ public class TerrainType {
         return code;
     }
 
-    public static TerrainType terrainTypeForChar(char c){
-        return terrainTypes.stream().filter(terrain -> terrain.getCode() == c).findFirst().orElseThrow(() ->
-                new IllegalArgumentException("terrain with code: " + c + " not found"));
-    }
 
     Integer getExcavationFuelCost(){return excavationFuelCost;}
 }

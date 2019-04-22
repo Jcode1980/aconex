@@ -29,7 +29,6 @@ public class Client {
     public void startExcavationSimluator(){
         //do something here
         //excavationService.startExcavationJob(excavationJob);
-        System.out.println("the cardinal point is: " + excavationJob.excavator().getCardinalPoint());
         wellcomPhase();
 
     }

@@ -9,14 +9,14 @@ The following items should be installed in your system:
 - IntelliJ
 - Java 9
 
-Running The Toy Robot Application
+Running The Aconex Excavation Application
 --------------
 
 **Inside Intellij**
 - Open project into Intellij
     *Running All Tests*
-    - Click on aconex project within Intellij
-    - Go to Run ->
+    - Right click on src/main/java/com/aconex/excavation/Application.java
+    - Click on "Run All Tests"
 
     *Running main App using default map (src/main/resources/SiteMap.txt)
     - Right click on src/main/java/com/aconex/excavation/Application.java
@@ -55,7 +55,7 @@ Running The Toy Robot Application
 
 Assumptions
 ===========
-   -Valid commands with correct formatting is specified within the problems.md are as follows:
+    -Valid commands with correct formatting is specified within the problems.md are as follows:
         l - left
         r - right
         a <n> - advance <n>
@@ -77,7 +77,7 @@ Project Discussions
     Whilst reading the task, i saw that the requirements can be split
     into the job of clearing of the site using the bulldozer and then
     the invoicing for that job. I have therefore created two services,
-    an Excavtion Service and a Finance Service.
+    an Excavation Service and a Finance Service.
 
 
 

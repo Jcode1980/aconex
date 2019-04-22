@@ -1,23 +1,16 @@
 package com.aconex.excavation.model.job;
 
-import com.aconex.excavation.enums.ActionType;
+
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.MockitoRule;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.collection.IsArrayContaining.hasItemInArray;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+
 
 
 @RunWith(MockitoJUnitRunner.class)
