@@ -1,12 +1,9 @@
 package com.aconex.excavation;
 
-import com.aconex.excavation.enums.ActionType;
+
 import com.aconex.excavation.model.job.IExcavationJob;
-import com.aconex.excavation.model.job.IExcavator;
-import com.aconex.excavation.model.job.Instruction;
 import com.aconex.excavation.service.job.ExcavationService;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +18,6 @@ import java.nio.file.Paths;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ClientTest {

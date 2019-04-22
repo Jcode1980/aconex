@@ -53,8 +53,6 @@ public class InvoiceTest {
         invoice = null;
     }
 
-    //this would be an integration test.
-    //how would u unit test invoiceItems()?
     @Test
     public void invoiceItems() {
         invoice.addToInvoiceItems(invoiceItemMock);
